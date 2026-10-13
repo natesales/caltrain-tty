@@ -1,0 +1,24 @@
+[Unit]
+Description=Caltrain departure board
+After=systemd-user-sessions.service network-online.target
+Wants=network-online.target
+Conflicts=getty@tty1.service
+
+[Service]
+Type=idle
+ExecStart=/usr/local/bin/caltrain-tty-boot
+WorkingDirectory=/home/pi
+User=pi
+Group=pi
+SupplementaryGroups=tty video
+StandardInput=tty
+StandardOutput=tty
+StandardError=tty
+TTYPath=/dev/tty1
+TTYReset=yes
+TTYVHangup=yes
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
